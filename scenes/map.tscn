@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://gh8ss4csckmi"]
+
+[ext_resource type="PackedScene" uid="uid://d0gkmi6xlw2r6" path="res://scenes/character/character.tscn" id="1_4xfga"]
+[ext_resource type="Script" uid="uid://b8n6mbk8iy3ra" path="res://scenes/map.gd" id="1_paxxb"]
+[ext_resource type="Texture2D" uid="uid://bmo7g4ai7njt6" path="res://assets/Tilemap/Tiles/Assets/Background_2.png" id="2_0cso3"]
+[ext_resource type="Texture2D" uid="uid://bmehc4mq8jwl3" path="res://assets/Tilemap/Tiles/Assets/Background_1.png" id="3_2klcf"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_paxxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_paxxb"]
+size = Vector2(2556, 41)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gldc4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2klcf"]
+size = Vector2(539, 53.5)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0cso3"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_paxxb")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="First" type="TextureRect" parent="Background"]
+layout_mode = 2
+offset_right = 2560.0
+offset_bottom = 1440.0
+texture = ExtResource("2_0cso3")
+
+[node name="Second" type="TextureRect" parent="Background"]
+layout_mode = 2
+offset_right = 2560.0
+offset_bottom = 1440.0
+texture = ExtResource("3_2klcf")
+
+[node name="Character" parent="." instance=ExtResource("1_4xfga")]
+position = Vector2(256, 1174)
+health = 30
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(862, 1408)
+physics_material_override = SubResource("PhysicsMaterial_paxxb")
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(419, 10.5)
+shape = SubResource("RectangleShape2D_paxxb")
+
+[node name="TextureRect" type="TextureRect" parent="RigidBody2D/CollisionShape2D"]
+offset_left = -1276.0
+offset_top = -20.5
+offset_right = 1279.0
+offset_bottom = 20.5
+texture = SubResource("NoiseTexture2D_gldc4")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(804, -262)
+shape = SubResource("RectangleShape2D_2klcf")
+
+[node name="TextureRect2" type="TextureRect" parent="RigidBody2D/CollisionShape2D2"]
+offset_left = -269.5
+offset_top = -28.25
+offset_right = 270.5
+offset_bottom = 26.75
+texture = SubResource("NoiseTexture2D_0cso3")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(1427, -498)
+shape = SubResource("RectangleShape2D_2klcf")
+
+[node name="TextureRect3" type="TextureRect" parent="RigidBody2D/CollisionShape2D3"]
+offset_left = -269.5
+offset_top = -28.25
+offset_right = 270.5
+offset_bottom = 26.75
+texture = SubResource("NoiseTexture2D_0cso3")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="death_signal" from="Character" to="." method="_on_character_death_signal"]

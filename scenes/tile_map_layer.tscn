@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvkby54iscdes"]
+
+[sub_resource type="TileSet" id="TileSet_o3fi6"]
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 1
+terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/color = Color(0.162962, 0.455555, 0.169799, 1)
+
+[node name="TileMapLayer" type="TileMapLayer"]
+tile_set = SubResource("TileSet_o3fi6")
